@@ -1,0 +1,56 @@
+** APPRENDRE DJANGO: La formation complète django video 27
+
+Necessair à faire:
+
+installer python sur linux:
+	1. Déziper Python
+	2. ./configure
+	3. make
+	4. se connecter en root et faire : make install
+
+Bon à savoir:
+* Le fichier urls.py permet de définir les chemins urls des pages et vers quelle views ils doivent renvoyer.
+* Le fichier settings.py contient tous les réglages ou toutes les préférences de l'application django
+*  
+	
+installer pip:						sudo apt-get install python3-pip (Python3)
+version python installée:				python --version
+lien symbolique pour une version de pip:		sudo ln -s /usr/bin/pip3.9 /usr/bin/pip
+lien symbolique pour une version de python:		sudo ln -s /usr/bin/python3.9 /usr/bin/python
+désinstaller python2.7					sudo apt purge -y python2.7*
+
+
+1. Créer un environnement virtuel:			python3.9 -m venv .env
+2. Activer un environnement virtuel:			source .env/bin/activate
+3. mettre pip à jour: 					pip3.9 install --upgrade pip
+4. Installer django:					pip3.9 install django
+5. Voir la version de django installée:			python -m django --version ou django-admin --version
+6. Créer le fichier requirement.txt:
+	1. Activer l'environement virtuel
+	2. pip freeze > requirements.txt
+7. Créer un projet django:				django-admin startproject nomProjetDjango
+8. Voir les option de django-admin:			django-admin --help
+9. Lancer le serveur django en local:			python manage.py runserver
+10. Corriger le pb d'importation de sqlite3:		sudo apt-get install libsqlite3-dev
+11. Désactiver l'environnement Anaconda:		conda deactivate
+12. désactiver l'environnement par défaut au démarrage:	conda config --set auto_activate_base false
+13. Installer un environnement virtuel:			sudo pip3 install virtualenv
+14. Créer un environnemnt virtuel:			virtualenv newenv
+15. Activer cet environnement virtuel créé:		source newenv/bin/activate
+16. Tous les filtres que l'on peut utiliser:		https://docs.djangoproject.com/fr/3.2/ref/templates/builtins/
+17. Créer une application:				python3 manage.py startapp nom_app (Après avoir créé l'application il faut aller l'inclure dans settings.py dans la liste des applications).
+18. Inclure une app dans settings.py:			Voir liste INSTALL_APP et ajouter la valeur 'nom_app' (Après il faudra créer le fichier urls.py de l'app créée et le définir dans urls.py général)
+19. Créer le fichier urls.py de l'app créée et le définir dans urls.py général:
+	path('nom_app/', include('nom_app.urls')),
+
+
+
+
+** Quand on a créé une nouvelles application Django; on doit:
+	1. Configurer le dossier des templates dans settings.py: on cherche le dictionnaire TEMPLATES et dans la clef 'DIRS', on ajoute 'DIRS': [os.path.join(BASE_DIR, "blogdoc/templates")]
+	2. configurer le dossier static dans settings.py
+	3. Configurer le dossier des images dans settings.py
+	4. Chaque app créée doit avoir sin template avec un sous-dossier portant le nom de l'application
+	5. Por que le dossier 'templates' soit automatiquement reconnu il faut mette la valeur de la clef 'APP_DIRS' du dico 'TEMPLATES' à True.
+
+
