@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <a href="{% url 'blog-index' %}">Retour au sommaire</a>
+    <a href="{% url 'blog-post-edit' slug=post.slug %}">Modifier l'article</a>
+    <a href="{% url 'blog-post-delete' slug=post.slug %}">Supprimer l'article</a>
+    <h1>Titre de l'article: {{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+</body>
+</html>

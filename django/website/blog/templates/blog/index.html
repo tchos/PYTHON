@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Application "blog": Liste des blogs</h1>
+    {% for blog in posts %}
+        {% with nbCat=blog.category.count %}
+            <a href="{% url 'blog-post-detail' slug=blog.slug %}">
+                {{ forloop.counter }}. Titre de l'article: {{ blog.title }}
+            </a>
+            <small>Cet article est présent dans {{ nbCat }} catégories(s) !!!</small>
+        {% endwith %}
+        <br>
+    {% empty %}
+        <i>IL n'y a pas d'aticle en BD</i>
+    {% endfor %}
+    <br>
+    <a href="{% url 'blog-post-create' %}">Créer un article</a>
+</body>
+</html>
