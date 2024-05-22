@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}Nouvelle équipe{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h4><i class="fa fa-users" aria-hidden="true"></i> Nouvelle équipe</h4>
+            <hr>
+        </div>
+        <div class="row">
+            <form method="POST" class="form-group">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.libelle %}
+                    </div>
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.chef %}
+                    </div>
+                </div>
+                <hr>
+                <input type="submit" class="btn btn-sm btn-primary" value="{{ submit_text }}">
+                <input type="reset" class="btn btn-sm btn-danger" value="Annuler">
+            </form>
+        </div>
+        
+    </div>
+{% endblock %}

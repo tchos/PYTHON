@@ -1,0 +1,59 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Voyageurs</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <div class="col-10">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll ms-5" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item me-5">
+                      <a class="nav-link active" aria-current="page" href="#">Collecter</a>
+                    </li>
+                    <li class="nav-item me-5">
+                      <a class="nav-link active" href="#">Lister</a>
+                    </li>
+                    <li class="nav-item me-5 dropdown">
+                      <a class="nav-link active dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Users
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="{% url "accounts:signup" %}">Créer</a></li>
+                        <li><a class="dropdown-item" href="{% url "accounts:list" %}">Lister</a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-item me-5 dropdown">
+                      <a class="nav-link active dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Equipes
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="{% url 'accounts:add_team' %}">Créer</a></li>
+                        <li><a class="dropdown-item" href="#">Lister</a></li>
+                      </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-2 ps-5">
+                <ul class="navbar-nav ms-5 ml-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-primary fw-bolder" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              {{ user.nom }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item" href="#">Profil</a></li>
+                                <li><a class="dropdown-item" href="#">Modifier</a></li>
+                                <li><a class="dropdown-item text-danger fw-bold" href="{% url "accounts:signout" %}">Quitter</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item me-5">
+                          <a class="nav-link active" href="{% url "accounts:signin" %}">Connectez-vous</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

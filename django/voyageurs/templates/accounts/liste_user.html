@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/datatables.min.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h4><i class="fa fa-user-plus" aria-hidden="true"></i>Liste des utilisateurs</h4>
+            <hr class="mb-5">
+        </div>
+        
+        <div class="row mt-5">
+            <table id="users" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>NOM</th>
+                        <th>EMAIL</th>
+                        <th>DATE CREATION</th>
+                        <th>LAST LOGIN</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.date_joined|date:"SHORT_DATE_FORMAT" }}</td>
+                            <td>{{ user.last_login|date:"SHORT_DATE_FORMAT" }}</td>
+                            <td>
+                                <a title="Modifier les informations sur {{ user.nom }}" href="#">
+                                    <i class="fas fa-edit text-success"></i><span class="ms-4"></span>
+                                </a>
+                                <a title="Modifier les informations sur {{ user.nom }}" href="#">
+                                    <i class="fas fa-delete-left text-success"></i><span class="ms-4"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>N°</th>
+                        <th>NOM</th>
+                        <th>EMAIL</th>
+                        <th>DATE CREATION</th>
+                        <th>LAST LOGIN</th>
+                        <th>ACTION</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/datatables.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            new DataTable('#users');
+        });
+    </script>
+{% endblock %}
