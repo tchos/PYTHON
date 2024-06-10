@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'django_bootstrap5',
     'accounts',
+    'persons',
 ]
 
 MIDDLEWARE = [
@@ -154,7 +155,6 @@ MESSAGE_TAGS = {
 }
 
 # EMAIL configuration
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
@@ -180,3 +180,4 @@ MESSAGE_TAGS = {
 
 # Redirect to home URL after login
 LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'accounts:signin'

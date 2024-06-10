@@ -26,12 +26,20 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, nom, telephone, password=None):
-        user = self.create_user(
-            email=email,
+        if not email:
+            raise ValueError("L'email de l'utilisateur est obligatoire")
+        if not nom:
+            raise ValueError("L'utilisateur doit avoir un nom")
+        if not telephone:
+            raise ValueError("On doit pouvoir contacter un utilisateur")
+
+        user = self.model(
+            email=self.normalize_email(email),
             nom=nom,
             telephone=telephone,
-            password=password,
         )
+
+        user.set_password(password)
         user.is_admin = True
         user.is_staff = True
         user.is_active = True

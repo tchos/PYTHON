@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UsernameField
+from django.contrib.auth.forms import AuthenticationForm, UsernameField, UserChangeForm
 from django.core.exceptions import ValidationError
 from .models import CustomUser, Team
 
@@ -37,6 +37,36 @@ class UserRegisterForm(forms.ModelForm):
 
         if CustomUser.objects.filter(email=email).exists():
             raise ValidationError({"email":"Erreur: Cet email existe déjà. Veuillez utiliser une autre adresse email !!!"})
+
+class UserChangeForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'minfi'}))
+
+    class Meta:
+        model = CustomUser
+        fields = ['nom', 'telephone', 'equipe', 'password', 'confirm_password']
+
+        # Personnalisation des champs du formulaire
+        labels = {
+            'nom': "Nom complet de l'utilisateur :",
+            'equipe': 'Equipe de mission :',
+            'telephone': 'Telephone :',
+            'password': 'Mot de passe :',
+            'confirm_password': 'Confirmer le mot de passe :'
+        }
+
+        widgets = {
+            'nom': forms.TextInput(attrs={'placeholder': 'Ex: ELOHIM MELCHISEDEK'}),
+            'telephone': forms.TextInput(attrs={'placeholder': 'Ex: 620202020'}),
+            'password': forms.PasswordInput(attrs={'placeholder': 'minfi'}),
+        }
+
+    def clean(self):
+        cleaned_data = super(UserChangeForm, self).clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password != confirm_password:
+            raise forms.ValidationError({"password": "Erreur: Les mots de passes sont différents !!!"})
 
 
 class TeamForm(forms.ModelForm):

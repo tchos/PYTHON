@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}MODIFIER UN VOYAGEUR{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h4><i class="fa-solid fa-plane"></i> Mettre à jour des informations sur le voyageur</h4>
+            <hr class="mb-5">
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                {% include "include/alert.html" %}
+            </div>
+        </div>
+        <div class="row">
+            <form method="POST" enctype="multipart/form-data" class="form-group">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.nom %}
+                        <small class="form-text text-secondary">Renseignez en majuscule le nom complet du voyageur</small>
+                        {% if nom.errors %}
+                            {% for error in nom.errors %}
+                                <small class="text-danger"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>{{ error }} !!!</small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.date_naissance %}
+                        <small class="form-text text-secondary">Date de naissance du voyageur</small>
+                        {% if date_naissance.errors %}
+                            {% for error in date_naissance.errors %}
+                                <small class="text-danger">
+                                    <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                                    {{ error }} !!!
+                                </small>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.numero_cni %}
+                        <small class="form-text text-secondary">Renseignez le numéro de sa CNI si c'est présent dans le registre</small>
+                        {% if numero_cni.errors %}
+                            {% for error in numero_cni.errors %}
+                                <small class="text-danger">
+                                    <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                                    {{ error }} !!!
+                                </small><br/>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.numero_passeport %}
+                        <small class="form-text text-secondary">Renseignez le numéro de son passeport si c'est présent dans le registre</small>
+                        {% if numero_passeport.errors %}
+                            {% for error in numero_passeport.errors %}
+                                <small class="text-danger">
+                                    <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                                    {{ error }} !!!
+                                </small><br/>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.mouvement %}
+                        <small class="form-text text-secondary">Veuiller préciser s'il s'agissait d'une entrée ou d'une sortie du territoire</small>
+                    </div>
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.provenance_destination %}
+                        <small class="form-text text-secondary">D'où venait-il ou alors où se rendait-il ??</small>
+                        {% if provenance_destination.errors %}
+                            {% for error in provenance_destination.errors %}
+                                <small class="text-danger">
+                                    <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                                    {{ error }} !!!
+                                </small><br/>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.date_mouvement %}
+                        <small class="form-text text-secondary">Date d'entrée ou de sortie du territoire</small>
+                    </div>
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.frontiere %}
+                        <small class="form-text text-secondary">A quelle frontière avez-vous collecté ces informations ?</small>
+                    </div>
+                </div>
+                <hr>
+                <input type="submit" class="btn btn-sm btn-outline-success" value="{{ submit_text }}">
+                <input type="reset" class="btn btn-sm btn-outline-danger" value="Annuler">
+            </form>
+        </div>
+    </div>
+{% endblock %}
